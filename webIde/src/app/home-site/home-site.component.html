@@ -1,0 +1,12 @@
+<app-text-editor></app-text-editor>
+<!--<iframe-->
+<!--  frameBorder="0"-->
+<!--  height="450px"-->
+<!--  src="https://onecompiler.com/embed/python?hideLanguageSelection=true"-->
+<!--  width="100%"-->
+<!--&gt;</iframe>-->
+<button mat-raised-button class="button" color="primary" (click)="takeCode(test.id)">RUN</button>
+<mat-form-field appearance="fill">
+  <mat-label #test id="test">Textarea</mat-label>
+  <textarea matInput></textarea>
+</mat-form-field>
