@@ -5,8 +5,21 @@
   margin-left: 8px;
   min-width: 120px;
 }
-:host {
+.host {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.wrapper {
+  overflow: hidden;
+}
+
+.in-and-out {
+  width: 450px;
+  float:left;
+}
+
+.text-editor {
+  float:left;
 }

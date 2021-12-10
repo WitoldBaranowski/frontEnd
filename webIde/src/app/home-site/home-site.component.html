@@ -1,12 +1,24 @@
-<app-text-editor></app-text-editor>
-<!--<iframe-->
-<!--  frameBorder="0"-->
-<!--  height="450px"-->
-<!--  src="https://onecompiler.com/embed/python?hideLanguageSelection=true"-->
-<!--  width="100%"-->
-<!--&gt;</iframe>-->
-<button mat-raised-button class="button" color="primary" (click)="takeCode(test.id)">RUN</button>
-<mat-form-field appearance="fill">
-  <mat-label #test id="test">Textarea</mat-label>
-  <textarea matInput></textarea>
-</mat-form-field>
+<div class = "wrapper">
+  <div class = "text-editor">
+    <app-text-editor></app-text-editor>
+  </div>
+  <div class = "in-and-out">
+    <div class = "stdin">
+      <mat-form-field appearance="fill">
+        <mat-label>Input</mat-label>
+        <textarea matInput type="text" #input></textarea>
+      </mat-form-field>
+    </div>
+    <div >
+      <mat-form-field appearance="fill">
+        <mat-label #output id="test">Output</mat-label>
+        <textarea matInput ></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div>
+  <button mat-raised-button class="button" color="primary" (click)="takeCode(output.id,input.value)">RUN</button>
+</div>
+
+

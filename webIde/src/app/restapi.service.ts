@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {Student} from "./login/student";
 import {CodeService} from "./code-upload/codeService";
 import {stdoutDTO} from "./code-upload/stdoutDTO";
+import {map} from "rxjs/operators";
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,8 @@ export class RestapiService {
   private apiServerUrlStudent = "http://localhost:8080/student";
   private apiServerUrlCode = "http://localhost:8080/code";
   stdout: stdoutDTO;
+  private apiData = new BehaviorSubject<stdoutDTO>(null);
+  public apiData$ = this.apiData.asObservable();
   constructor(private http:HttpClient) { }
 
   public login(username:string, password:string){
@@ -24,14 +28,14 @@ export class RestapiService {
     return this.http.get<Student>(`${this.apiServerUrlStudent}/find/${username}`,{headers})
   }
 
-  public uploadCode(code: CodeService):stdoutDTO{
+  public uploadCode(code: CodeService){
     let headers = new HttpHeaders({Authorization: 'Basic ' + btoa(code.student.username + ":" + code.student.password)})
-     this.http.post<stdoutDTO>(`${this.apiServerUrlCode}/add`,code,{headers}).subscribe(data => {
-      this.stdout = data;
-      console.log(this.stdout);
-      return this.stdout
-    })
-      return this.stdout
+     return this.http.post<stdoutDTO>(`${this.apiServerUrlCode}/add`,code,{headers}).pipe(map(data => {
+      return data
+    }))
   }
 
+  setData(data: stdoutDTO) {
+    this.apiData.next(data)
+  }
 }

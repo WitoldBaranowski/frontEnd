@@ -5,6 +5,7 @@ import {RestapiService} from "../restapi.service";
 import {LoginComponent} from "../login/login.component";
 import {Student} from "../login/student";
 import {StudentDTO} from "../code-upload/studentDTO";
+import {stdoutDTO} from "../code-upload/stdoutDTO";
 
 @Component({
   selector: 'app-home-site',
@@ -18,18 +19,20 @@ export class HomeSiteComponent implements OnInit {
   constructor(private service:RestapiService, private codeService: CodeService) { }
 
   student: StudentDTO;
-
+  stdout: stdoutDTO;
   ngOnInit(): void {
     this.student = this.codeService.student;
     console.log(this.student);
   }
 
-  takeCode(lbl){
-    // @ts-ignore
-    document.getElementById(lbl).innerText = this.student;
+  takeCode(lbl,stdin){
     console.log(this.student);
     this.codeService.program = this.ace.retunCode();
-    this.codeService.stdin = "";
-    this.service.uploadCode(this.codeService);
+    this.codeService.stdin = stdin;
+    this.service.uploadCode(this.codeService).subscribe(data =>{
+      this.stdout = data;
+      this.service.setData(data)
+      document.getElementById(lbl).innerText = this.stdout.stdout;
+    });
   }
 }
