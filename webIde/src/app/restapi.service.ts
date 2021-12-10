@@ -3,8 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Student} from "./login/student";
 import {CodeService} from "./code-upload/codeService";
-import {CodeApiDTO} from "./code-upload/CodeApiDTO";
-import {files} from "./code-upload/files";
+import {stdoutDTO} from "./code-upload/stdoutDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +11,7 @@ import {files} from "./code-upload/files";
 export class RestapiService {
   private apiServerUrlStudent = "http://localhost:8080/student";
   private apiServerUrlCode = "http://localhost:8080/code";
-  private apiInterpreter = "https://onecompiler.com/api/v1/run?access_token=tdCL9qZbYqVZuxmACqmsW425kNMMPBDyP53kgzC385PuzjnwY4QYRXnNhDrCPmx29pgSNhA2PENMMPBDyP53kgxePaYrR6pKce25kENMMPBDyP5Fu"
-  public codeApi: CodeApiDTO;
-  files: files;
+  stdout: stdoutDTO;
   constructor(private http:HttpClient) { }
 
   public login(username:string, password:string){
@@ -27,18 +24,14 @@ export class RestapiService {
     return this.http.get<Student>(`${this.apiServerUrlStudent}/find/${username}`,{headers})
   }
 
-  public uploadCode(code: CodeService){
+  public uploadCode(code: CodeService):stdoutDTO{
     let headers = new HttpHeaders({Authorization: 'Basic ' + btoa(code.student.username + ":" + code.student.password)})
-    this.http.post<CodeService>(`${this.apiServerUrlCode}/add`,code,{headers}).subscribe(data => {
-      code = data;
+     this.http.post<stdoutDTO>(`${this.apiServerUrlCode}/add`,code,{headers}).subscribe(data => {
+      this.stdout = data;
+      console.log(this.stdout);
+      return this.stdout
     })
-    this.files = new files(code.program);
-    this.codeApi = new CodeApiDTO("", [this.files]);
-    headers=new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    this.http.post<CodeService>(`${this.apiInterpreter}`,this.codeApi,{headers}).subscribe(data => {
-      code = data;
-    });
-    console.log(this.codeApi);
+      return this.stdout
   }
 
 }

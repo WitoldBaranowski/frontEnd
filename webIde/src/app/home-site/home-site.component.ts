@@ -29,6 +29,7 @@ export class HomeSiteComponent implements OnInit {
     document.getElementById(lbl).innerText = this.student;
     console.log(this.student);
     this.codeService.program = this.ace.retunCode();
+    this.codeService.stdin = "";
     this.service.uploadCode(this.codeService);
   }
 }
