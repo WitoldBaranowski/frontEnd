@@ -11,7 +11,7 @@ import {StudentDTO} from "../code-upload/studentDTO";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnDestroy{
+export class  LoginComponent implements OnDestroy{
 
   username:string;
   password:string;
