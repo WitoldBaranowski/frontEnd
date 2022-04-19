@@ -16,13 +16,16 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {CodeService} from "./code-upload/codeService";
 import {AuthInterceptor} from "./AuthInterceptor";
+import { PopupComponent } from './login/popup/popup.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
   declarations: [
     AppComponent,
     TextEditorComponent,
     LoginComponent,
-    HomeSiteComponent
+    HomeSiteComponent,
+    PopupComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import {AuthInterceptor} from "./AuthInterceptor";
     BrowserAnimationsModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
   providers: [RestapiService, CodeService, {
     provide: HTTP_INTERCEPTORS,

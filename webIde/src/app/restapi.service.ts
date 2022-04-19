@@ -7,6 +7,7 @@ import {stdoutDTO} from "./code-upload/stdoutDTO";
 import {map} from "rxjs/operators";
 import {FormGroup} from "@angular/forms";
 import {StudentDTO} from "./code-upload/studentDTO";
+import {UserDTO} from "./code-upload/userDTO";
 
 
 @Injectable({
@@ -39,22 +40,26 @@ export class RestapiService {
         withCredentials: true
       }
     );
+  }
 
-    /*const headers=new HttpHeaders({Authorization: 'Basic '+btoa(username+":"+password)})
-    return this.http.get("http://localhost:8080/student/a",{headers,responseType:'text'as'json'})*/
+  public addStudent(userDTO: UserDTO){
+    return this.http.post<boolean>(`${this.apiServerUrlStudent}/add`,userDTO,{withCredentials:
+        true})
   }
 
   public getStudent(username:string, password:string): Observable<StudentDTO>{
-    /*const headers=new HttpHeaders({Authorization: 'Basic '+btoa(username+":"+password)})*/
     return this.http.get<StudentDTO>(`${this.apiServerUrlStudent}/find/${username}`
-      )
+       )
   }
 
   public uploadCode(code: CodeService){
-    let headers = new HttpHeaders({Authorization: 'Basic ' + btoa(/*code.student.username*/"b" + ":" + "kot"/*code.student.password*/)})
-     return this.http.post<stdoutDTO>(`${this.apiServerUrlCode}/add`,code,{headers}).pipe(map(data => {
+     return this.http.post<stdoutDTO>(`${this.apiServerUrlCode}/add`,code).pipe(map(data => {
       return data
     }))
+  }
+
+  public logout(): Observable<string>{
+    return this.http.get<string>(`http://localhost:8080/logout`)
   }
 
   setData(data: stdoutDTO) {

@@ -6,6 +6,7 @@ import {LoginComponent} from "../login/login.component";
 import {Student} from "../login/student";
 import {StudentDTO} from "../code-upload/studentDTO";
 import {stdoutDTO} from "../code-upload/stdoutDTO";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-site',
@@ -16,7 +17,7 @@ export class HomeSiteComponent implements OnInit {
 
   @ViewChild(TextEditorComponent) ace: TextEditorComponent;
 
-  constructor(private service:RestapiService, private codeService: CodeService) { }
+  constructor(private service:RestapiService, private codeService: CodeService, private router:Router) { }
 
   student: StudentDTO;
   stdout: stdoutDTO;
@@ -35,4 +36,11 @@ export class HomeSiteComponent implements OnInit {
       document.getElementById(lbl).innerText = this.stdout.stdout;
     });
   }
+
+  logout(){
+    console.log("logged out")
+    this.service.logout();
+    this.router.navigate(["/login"])
+  }
+
 }
