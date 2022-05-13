@@ -20,9 +20,9 @@ export class TextEditorComponent implements AfterViewInit {
     aceEditor.session.setValue("print(\"hello world\")");
     aceEditor.setTheme("ace/theme/tomorrow_night_blue");
     aceEditor.session.setMode("ace/mode/python");
-    aceEditor.on("change", () => {
-      console.log(aceEditor.getValue());
-    });
+    // aceEditor.on("change", () => {
+    //   console.log(aceEditor.getValue());
+    // });
   }
 
   retunCode() :string{

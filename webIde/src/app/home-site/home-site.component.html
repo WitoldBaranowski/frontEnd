@@ -1,28 +1,37 @@
-<div class = "wrapper">
-  <div class = "text-editor">
-    <app-text-editor></app-text-editor>
+<div class = "bck">
+  <div>
+    <h1 class="title">Zintegrowane środowisko programistyczne</h1>
   </div>
-  <div class = "in-and-out">
-    <div class = "stdin">
-      <mat-form-field appearance="fill">
-        <mat-label>Input</mat-label>
-        <textarea matInput type="text" #input></textarea>
-      </mat-form-field>
+  <div class="wrapper">
+    <div class="text-editor">
+      <app-text-editor></app-text-editor>
     </div>
-    <div >
-      <mat-form-field appearance="fill">
-        <mat-label #output id="test">Output</mat-label>
-        <textarea matInput ></textarea>
-      </mat-form-field>
+    <div class="in-and-out">
+      <div class="stdin">
+        <mat-form-field appearance="fill" class = "inout">
+          <mat-label style="color: aliceblue">Input</mat-label>
+          <textarea matInput type="text" #input class="textarea"></textarea>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field appearance="fill" class = "inout">
+          <mat-label style="color: aliceblue">Output</mat-label>
+          <textarea matInput #output id="test" class="textarea"></textarea>
+        </mat-form-field>
+      </div>
     </div>
   </div>
+  <div>
+    <div>
+      <button mat-raised-button class="buttonl" (click)="takeCode(output.id,input.value)">RUN</button>
+    </div>
+    <div class="logout">
+      <button mat-raised-button (click)="logout()" ><span class="material-icons">logout</span></button>
+    </div>
+  </div>
+
 </div>
-<div>
-  <button mat-raised-button class="button" color="primary" (click)="takeCode(output.id,input.value)">RUN</button>
-</div>
-<div>
-  <button mat-raised-button class="button" color="primary" (click)="logout()">LOGOUT</button>
-</div>
+
 
 
 

@@ -33,7 +33,7 @@ export class HomeSiteComponent implements OnInit {
     this.service.uploadCode(this.codeService).subscribe(data =>{
       this.stdout = data;
       this.service.setData(data)
-      document.getElementById(lbl).innerText = this.stdout.stdout;
+      document.getElementById(lbl).innerText =this.stdout.stdout;
     });
   }
 
