@@ -36,7 +36,7 @@ export class  LoginComponent implements OnDestroy{
 
   doLoginWithStudent(){
     this.service.login(this.username,this.password).pipe(
-      switchMap(()=>this.service.getStudent(this.username, this.password)))
+      switchMap(()=>this.service.getStudent(this.username)))
       .subscribe(
         (response: StudentDTO) => {
           this.student = response;

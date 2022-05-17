@@ -47,7 +47,7 @@ export class RestapiService {
         true})
   }
 
-  public getStudent(username:string, password:string): Observable<StudentDTO>{
+  public getStudent(username:string): Observable<StudentDTO>{
     return this.http.get<StudentDTO>(`${this.apiServerUrlStudent}/find/${username}`
        )
   }
